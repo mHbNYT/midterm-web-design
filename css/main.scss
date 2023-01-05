@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+//برای بک گراند ضفحه 
+body{
+    //بک گراند خاکستری
+    background: #b3b3b3;
+    // بدون فاصله از کادر پنجره
+    margin: 0;
+    //انتخاب فونت
+    font-family: 'Poppins';
+    //قرار دادن آیتم ها در مرکز
+    align-items: center;
+    
+    //تعذیف استایل المنتی که در آن اطلاعات کاربر نمایش داده می شود
+    .user-info {
+        //رنگ پس زمنیه
+        background: white;
+        //حاشیه فرضی که برای این المنت تعریف می شود
+        margin: 2em;
+        //**************
+        float: left;
+        //فاصله المنت های فرزند این النت از لبه آن
+        padding: 3em;
+        //فاصله المنت های فرزند این النت از لبه پایینی آن
+        padding-bottom: 3em;
+        // حاشیه فرضی که برای طرف چپ این المنت تعریف میشود
+        margin-left: 19%;
+        //میزان شفافیت 
+        opacity: 0.8;
+        // به منظور گرد کردن گوشه ها
+        border-radius: 10%;
+        // برای تعریف کادر مشخص
+        border-style: solid;
+
+        //برای عنوان بخش اطلاعات کاربر یا همان
+        //Github User Profile
+        .user-profile {
+            margin: 1em;
+            font-weight: bold;
+            font-size: 1.4em;
+            margin-bottom: 2em;
+        }
+
+        //تعریف استایل تصویر کاربر
+        img {
+            width: 7em;
+            height: 8em;
+            border-radius: 10%;
+            margin: 0.5 em;
+            float: left;
+        }
+
+        // تعریف استایل اطلاعات کاربر:‌نام و آدرس وبلاگ . لوکیشن
+        ul {
+            padding-left: 5 em;
+            display: grid;
+            list-style: none;
+            margin-top: 5em;
+
+            // برای هر یک از آیتم ها (یعنی اسم و آدرس وبلاکگ و لوکیشن)
+            li {
+                font-size: 1.1em;
+                margin-bottom: 1em;
+                margin-left: 2em;
+            }
+        }
+    }
+
+    //المنت برای تعریف فرم
+    .input-username{
+        //*********
+        float: left;
+        background: white;
+        margin: 2em;
+        padding: 5em;
+        //میزان شفافیت
+        opacity: 0.6;
+        border-radius: 10%;
+        border-style: solid;
+        border-color: black;
+
+        // استایل بخش وارد کردن نام کاربری مورد نظر
+        .input-box{
+            color: rgb(218, 208, 208);
+            padding: 0.5em;
+            padding-left: 0.2;
+            font-size: 0.8em;
+            font-family: 'Poppins';
+            width: 87.5pt;
+            text-align: left;
+        }
+
+        // استایل دکمه ثبت به منظور دریافت اطلاعات کاربر
+        .submit{
+            margin-top: 1em;
+            font-size: 1em;
+            font-family: 'Poppins';
+            //  به منظور افزایش طول کادر دکمه
+            width: 100pt;
+        }
+    }
+}

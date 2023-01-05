@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IE Midterm</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="user-info" id="user-info">
+        <p class="user-profile" id="user-profile">
+            Github User Profile
+        </p>
+        <img id="img" class="img" src="person.png">
+        <ul>
+            <li id="name">Name</li>
+            <li id="blog">Blog Address</li>
+            <li id="location">Location</li>
+        </ul>
+         <div id="bio">
+            Bio
+         </div>
+    </div>
+
+    <div class="input-username" id="input-username">
+        <form id="form" class="form">
+            <input class="input-box" type="text" id="username" name="username" placeholder="Username"><br>
+            <input type="submit" class="submit" value="submit">
+        </form>
+    </div>
+
+    <script>
+
+        //document.getElementsByClassName('user-info').innerHTML += "welcome";
+        //document.getElementById("hello").innerHTML += "welcome";
+
+        const form = document.querySelector('form');
+               
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            handlePreviousSubmission();
+
+            const formData = new FormData(form);
+            const formObj = Object.fromEntries(formData);
+
+            let username = formObj.username;
+            
+            if (localStorage.getItem(username) !== null) {
+                console.log("on LOCAL STORAGE");
+                let data = JSON.parse(localStorage.getItem(username));
+                if (data.hasOwnProperty('message')){
+                    return handleNonExistence(data);
+                }
+                console.log(data);
+                return presentUserInfo(data);
+
+            }
+
+            console.log("NOT LOCAL STORAGE");
+            let response = fetch('https://api.github.com/users/'+username)            
+                .then((response) => response.json())
+                .then(data => {
+                    localStorage.setItem(username, JSON.stringify(data));
+
+                    if(data.hasOwnProperty('message')){
+                        return handleNonExistence();
+                    }
+                    return presentUserInfo(data);
+                    
+                })
+            
+                function handlePreviousSubmission() {
+                    if (document.getElementById('p')){
+                        let p = document.getElementById('p');
+                        p.parentNode.removeChild(p);
+                    }
+                }
+                
+                function handleNonExistence() {
+
+                    let messageElement = document.createElement("p");
+                    messageElement.id = "p";
+                    messageElement.innerHTML = "Sorry! There is no github user <br>with the entered username";
+                    messageElement.style = "color:red";
+
+                    document.getElementById('form').appendChild(messageElement);
+                }
+
+                function presentUserInfo(data){
+
+                    document.getElementById('name').innerHTML = data.name === "" || data.name === null ? "Name: -" : data.name;
+                    document.getElementById('blog').innerHTML = data.blog === "" || data.blog === null ? "Blog Address: -" : data.blog;
+                    document.getElementById('location').innerHTML = data.location === "" || data.location === null ? "Location: -" : data.location;
+                    document.getElementById('bio').innerHTML = handleBio(data.bio);
+                    document.getElementById('img').src = data.avatar_url;
+
+                    
+                }
+
+                function handleBio(bio) {
+
+                    if(bio === null) return "";
+
+                    let text = "";
+                    let arr = bio.split(',');
+                    
+                    arr.forEach((phrase) => {
+                        text += "<br>" + phrase + ",";
+                        console.log(phrase);
+                    });
+
+                    text = text + "remove";
+                    text = text.replace(",remove" , ".");
+                    return text;
+                    
+                }
+                
+        });
+
+        
+        
+        
+
+
+        
+    </script>
+
+</body>
+</html>
